@@ -1,9 +1,9 @@
 #pragma GCC optimize(3,"Ofast","inline")
-#include <iostream>  // 用于输入输出操作
-#include <vector>    // 用于使用向量容器
-#include <string>    // 用于使用字符串
-#include <algorithm> // 用于使用算法函数
-#include <bits/stdc++.h> // 用于使用一些常用的数据结构
+#include <iostream>  
+#include <vector>    
+#include <string>    
+#include <algorithm> 
+#include <bits/stdc++.h> 
 #include <typeinfo>
 #include <iomanip>
 #include "utils.h"

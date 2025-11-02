@@ -88,7 +88,7 @@ This part is from the following paper:
 
 <ul> 
     <li>Execute the Program</li>
-    <code>./IMIN.out -dataset dataset/test -k 10 -rumorNum 1 -algo SandIMIN -epsilon 0.2 -gamma 0.1 -beta 0.1</code>
+    <code>./IMIN.out -dataset datasets/EmailCore -k 10 -rumorNum 1 -algo SandIMIN -epsilon 0.2 -gamma 0.1 -beta 0.1</code>
     <li>Arguments</li>
     <ul>
     <li>dataset: path to the dataset directory</li>
@@ -97,6 +97,7 @@ This part is from the following paper:
     <li>algo: algorithm (SandIMIN/SandIMIN-)</li>
     </ul>
 </ul>
+
 
 
 

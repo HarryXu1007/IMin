@@ -23,7 +23,10 @@ We provide the <code>EmailEuropeCore</code> (<code>eec.txt</code>) as an example
 
 The format of the dataset file is:
 
-$\quad n\quad m\\ \quad u_1\quad v_1\\ \quad \dots \\ \quad  u_m\quad v_m$
+$\quad n\quad m$
+$\quad u_1\quad v_1$
+$\quad \dots $
+$\quad  u_m\quad v_m$
 
 
 ---
@@ -91,5 +94,6 @@ This part is from the following paper:
     <li>algo: algorithm (SandIMIN/SandIMIN-)</li>
     </ul>
 </ul>
+
 
 

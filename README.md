@@ -1,50 +1,95 @@
-# Influence Minimization
+# Project for *Influence Minimization: Approximation Hardness and Efficient Algorithms at Billion Scale*
 
-   This project implements the ReversedFlow and ReversedFlow+ algorithms.
+   This project implements the <code>ReversedFlow</code> and <code>ReversedFlow+</code> algorithms.
+
+   We also provide the baselines (<code>Random</code>, <code>Degree</code>, <code>PageRank</code>; <code>AdvancedGreedy</code> and <code>SandIMIN</code>) for comparison.
+
+## Files
+
+- <code>README.md</code> (this file)
+- <code>ReversedFlow+.cpp</code>: implementations of the <code>ReversedFlow</code> and <code>ReversedFlow+</code> algorithms
+- <code>utils.h</code>: implementation of some auxiliary code
+- <code>/datasets</code>: dataset for <code>ReversedFlow+.cpp</code>
+- <code>/Baselines</code>: baseline algorithms
+    - <code>0-Trivial_Baselines.cpp</code>: implementation of <code>Random</code>, <code>Degree</code> and <code>PageRank</code> algorithms for IMin
+    - <code>1-AdvancedGreedy.cpp</code>: implementation of <code>AdvancedGreedy</code> algorithm for IMin
+    - <code>/2-Sandwich</code>: codes of <code>SandIMIN</code> algorithm for IMin
 
 ## Dataset
    
 All the datasets in this project can be downloaded in [SNAP](https://snap.stanford.edu/).
 
-We provide the <code>EmailEuropeCore</code> as an example.
+We provide the <code>EmailEuropeCore</code> (<code>eec.txt</code>) as an example.
 
-## Compile 
+The format of the dataset file is:
 
-Compile the <code>ReversedFlow_changeBlockers.cpp</code> / <code>ReversedFlow_changeSeeds.cpp</code> / <code>ReversedFlow+_changeBlockers.cpp</code> / <code>ReversedFlow+_changeSeeds.cpp</code> with O3 optimization.
+$\quad n\quad m\\ \quad u_1\quad v_1\\ \quad \dots \\ \quad  u_m\quad v_m$
+
+
+---
+
+## ReversedFlow and ReversedFlow+
+
+We provide the implementation of the <code>RF</code>/<code>RF+</code> algorithms with fixed $|S|=10$ and you can adjust the seed set in the cpp file.
+
+### Compile 
+
+Compile the <code>ReversedFlow+.cpp</code> with O3 optimization.
 
 e.g., <code>g++ -O3 -o rf.out ReversedFlow_changeBlockers.cpp</code>.
 
-## Format of Datasets
-<ul>
-<li>In the folder <code>/dataset</code>, <code>'file_name'.txt</code> is stored. The following is an example format.</li>
 
-        1 2
-        1 3
-        2 3
-        2 4
+### Run 
 
-<li>
-In the folder <code>/dataset-Seeds</code>, <code>/'file_name'</code> is stored, in which <code>rumorSet_'number'.txt</code> lists the seeds. The following is an example format.</li>
+1. Run <code>./rf.out</code>.
+2. You will input some necessary parameters including the algorithm you choose, the budget $b$, the edge activation probability model and parameters in <code>RF+</code>.
 
-    0
-    100
-    200
-    300
-    400
-    500
-    600
-    700
-    800
-    900
+---
+
+## Trivial Baselines and AdvancedGreedy
+
+We implement the trivial baseline algorithms and the <code>AdvancedGreedy</code> algorithms in <code>0-Trivial_Baselines.cpp</code> and <code>1-AdvancedGreedy.cpp</code>, respectively.
+
+The compiling and running of the codes are similar with the <code>ReversedFlow+.cpp</code>, and you also need to input some necessary parameters to choose the algorithm and parameters.
+
+---
+
+## Sandwich and Sandwich-
+
+This part is from the following paper:
+
+<li>Jinghao Wang, Yanping Wu, Xiaoyang Wang, Ying Zhang, Lu Qin, Wenjie Zhang, Xuemin Lin, "Efficient Influence Minimization via Node Blocking", 2024.</li>
+
+### Dataset
+
+- There are six txt files in the <code>datasets/EmailCore</code> folder: 
+(i) <code>attribute.txt</code>; (ii) <code>graph.txt</code>; (iii) <code>graph-rangEdge.txt</code>; (iv) <code>rumorSet_1.txt</code>; (v) <code>rumorSet_10.txt</code>; (vi) <code>rumorSet_100.txt</code>.
+
+    - <code>attribute.txt</code> includes the $n$ and $m$.
+    - <code>graph.txt</code> and <code>graph-rangEdge.txt</code> is the dataset of the network with each line recording $u\ v\ p_{u,v}$.
+    - <code>rumorSet_x.txt</code> includes the seed set with size $x$.
+
+
+### Compile 
+
+<code>g++ -O3 -o IMIN.out Sandwich.cpp sfmt/SFMT.c</code>
+
+
+
+
+
+### Run 
+
+<ul> 
+    <li>Execute the Program</li>
+    <code>./IMIN.out -dataset dataset/test -k 10 -rumorNum 1 -algo SandIMIN -epsilon 0.2 -gamma 0.1 -beta 0.1</code>
+    <li>Arguments</li>
+    <ul>
+    <li>dataset: path to the dataset directory</li>
+    <li>epsilon, gamma, beta: the parameter</li>
+    <li>rumorNum: number of seed nodes of misinformation</li>
+    <li>algo: algorithm (SandIMIN/SandIMIN-)</li>
+    </ul>
 </ul>
-
-
-## Run 
-
-Run <code>./rf.out</code>.
-
-## Setting the Parameters
-<li> <code>RF/RF+_changeBlockers.cpp</code> need to initialize the seeds in the file and input the file name and budget.</li>
-<li> <code>RF/RF+_changeSeeds.cpp</code> need to assign the seeds in <code>/dataset-Seed/'file_name'/rumorSet_'number'.txt</code> and input the file name and number of seeds.</li>
 
 

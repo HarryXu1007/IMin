@@ -69,13 +69,16 @@ int main(){
 
     in >> n >> m;
     cout<<n<<'\t'<<m<<endl;
+
+    /////////////////////////////////
+    // Initialization of Seed Set
     cout<<"Seeds: ";
     for (LL i=0;i<10;i++){
         LL seed = i*(n/10);
         sources.push_back(seed);
         cout<<seed<<" ";
     }
-    cout<<endl;
+    /////////////////////////////////
 
 
     inDegree.resize(n);
@@ -148,6 +151,7 @@ int main(){
         LL num_sample=0;
         idx2node.resize(0);
         node2idx.resize(n);
+        vector<LL> terminal_order_list;
         for (LL i = 0; i < n; i++)
             node2idx[i] = -1;
         e_revSample.resize(0);
@@ -187,6 +191,7 @@ int main(){
                     if (vis[y] != -tag){
                         q.push(y); 
                         terminal[y] = true;
+                        terminal_order_list.push_back(y);
                         vis[y] = -tag;
                     }
                 }
@@ -198,11 +203,10 @@ int main(){
         for (LL i = 0; i < num_sample; i++)
             vis2[i] = 1;  
         queue<LL> q2;
-        for (LL i=0; i<num_sample; i++){
-            if (terminal[idx2node[i]]) 
-            {
-                q2.push(idx2node[i]);                   
-                vis2[i] = -tag;                     
+        for (auto v_ts: terminal_order_list){
+            if (terminal[v_ts]==true){
+                q2.push(v_ts);
+                vis2[node2idx[v_ts]] = -tag;
             }
         }
         while (!q2.empty())
@@ -288,6 +292,7 @@ if (algo_name == "RF+"){
         LL num_sample=0;
         idx2node.resize(0);
         node2idx.resize(n);
+        vector<LL> terminal_order_list;
         for (LL i = 0; i < n; i++)
             node2idx[i] = -1;
         
@@ -337,6 +342,7 @@ if (algo_name == "RF+"){
                     if (vis[y] != -tag && num_paths[y] < c1){
                         q.push(y); 
                         terminal[y] = true;
+                        terminal_order_list.push_back(y);
                         vis[y] = -tag;
                     }
                 }
@@ -348,11 +354,10 @@ if (algo_name == "RF+"){
         for (LL i = 0; i < num_sample; i++)
             vis2[i] = 1;  
         queue<LL> q2;
-        for (LL i=0; i<num_sample; i++){
-            if (terminal[idx2node[i]]) 
-            {
-                q2.push(idx2node[i]);                   
-                vis2[i] = -tag;                     
+        for (auto v_ts: terminal_order_list){
+            if (terminal[v_ts]==true){
+                q2.push(v_ts);
+                vis2[node2idx[v_ts]] = -tag;
             }
         }
         while (!q2.empty())

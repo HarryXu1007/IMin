@@ -145,7 +145,6 @@ int main(){
     vector<LL> vis2;
     vis2.resize(n);
 
-////////////////////////////////////////////////////////////
 
     for (tag = 1; tag <= T; tag++){
         LL num_sample=0;
@@ -162,6 +161,7 @@ int main(){
             trueinDegree[i] = 0;
         }
         queue<LL> q;
+        vector<LL> visited_vertices_rev_list;
         for (auto x : sources){
             q.push(x);
             score[x] = 1;
@@ -192,6 +192,7 @@ int main(){
                         q.push(y); 
                         terminal[y] = true;
                         terminal_order_list.push_back(y);
+                        visited_vertices_rev_list.push_back(y);
                         vis[y] = -tag;
                     }
                 }
@@ -202,26 +203,13 @@ int main(){
         vis2.resize(num_sample);
         for (LL i = 0; i < num_sample; i++)
             vis2[i] = 1;  
-        queue<LL> q2;
-        for (auto v_ts: terminal_order_list){
-            if (terminal[v_ts]==true){
-                q2.push(v_ts);
-                vis2[node2idx[v_ts]] = -tag;
-            }
-        }
-        while (!q2.empty())
-        {
-            LL x = q2.front();
-            q2.pop();
+        
+        for (auto it = visited_vertices_rev_list.rbegin(); it != visited_vertices_rev_list.rend(); ++it) {
+            LL x = *it;
             LL deg_tmp = trueinDegree[x];
             for (auto y : e_revSample[node2idx[x]])
             {
                 score[y] += score[x] / deg_tmp;
-                if (vis2[node2idx[y]] == 1)
-                {
-                    vis2[node2idx[y]] = -tag;
-                    q2.push(y);
-                }
             }
         }
         for (LL i=0; i<num_sample; i++){
@@ -309,6 +297,7 @@ if (algo_name == "RF+"){
             num_paths[i] = 0;
 
         queue<LL> q;
+        vector<LL> visited_vertices_rev_list;
         for (auto x : sources){
             q.push(x);
             score[x] = 1;
@@ -343,6 +332,7 @@ if (algo_name == "RF+"){
                         q.push(y); 
                         terminal[y] = true;
                         terminal_order_list.push_back(y);
+                        visited_vertices_rev_list.push_back(y);
                         vis[y] = -tag;
                     }
                 }
@@ -353,17 +343,8 @@ if (algo_name == "RF+"){
         vis2.resize(num_sample);
         for (LL i = 0; i < num_sample; i++)
             vis2[i] = 1;  
-        queue<LL> q2;
-        for (auto v_ts: terminal_order_list){
-            if (terminal[v_ts]==true){
-                q2.push(v_ts);
-                vis2[node2idx[v_ts]] = -tag;
-            }
-        }
-        while (!q2.empty())
-        {
-            LL x = q2.front();
-            q2.pop();
+        for (auto it = visited_vertices_rev_list.rbegin(); it != visited_vertices_rev_list.rend(); ++it) {
+            LL x = *it;
 
             //////////////////////////////
             if (trueinDegree[x] > c2){
@@ -380,7 +361,6 @@ if (algo_name == "RF+"){
                 if (vis2[node2idx[y]] == 1)
                 {
                     vis2[node2idx[y]] = -tag;
-                    q2.push(y);
                 }
             }
         }

@@ -17,7 +17,7 @@
 
 ## Dataset
    
-All the datasets in this project can be downloaded in [SNAP](https://snap.stanford.edu/).
+Due to the file size limit for uploads, we have provided 8 datasets in total. Among them, gg, sf, tw, and yt are compressed and need to be unzipped into .txt format. The remaining datasets in this project can be downloaded from the [SNAP website](https://snap.stanford.edu/).
 
 We provide the <code>EmailEuropeCore</code> (<code>eec.txt</code>) as an example.
 
